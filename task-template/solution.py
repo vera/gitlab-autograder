@@ -1,0 +1,2 @@
+def functionToBeImplemented(input):
+	pass
