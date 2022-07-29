@@ -8,10 +8,10 @@ Der Autograder nutzt zwei verschiedene Test-Suites, um die Programmieraufgaben z
 **Abbildung 1:** Screenshot der Darstellung der CI-Pipeline mit farbigem Icon
 
 ![Screenshot der Darstellung der Ergebnisse der verschiedenen CI-Pipeline-Schritte](user-manual-template/img/screenshot-pipeline-results.png) 
-**Abbildung 1:** Screenshot der Darstellung der Ergebnisse der verschiedenen CI-Pipeline-Schritte
+**Abbildung 2:** Screenshot der Darstellung der Ergebnisse der verschiedenen CI-Pipeline-Schritte
 
 ![Screenshot der Darstellung eines Feedback-Texts bei fehlgeschlagenem Test](user-manual-template/img/screenshot-hint.png) 
-**Abbildung 1:** Screenshot der Darstellung eines Feedback-Texts bei fehlgeschlagenem Test
+**Abbildung 3:** Screenshot der Darstellung eines Feedback-Texts bei fehlgeschlagenem Test
 
 Unter `user-manual-template` gibt es eine Vorlage für ein Handbuch, das den Nutzern zur Verfügung gestellt werden kann.
 
@@ -100,7 +100,7 @@ Bevor die Pipeline diese Testschritte ausführen kann, müssen zunächst die Tes
 
 Das Repository darf natürlich nicht öffentlich sein, da sonst die geheime Test-Suite nicht mehr geheim wäre. Zum Herunterladen des Repositories muss also ein Token verwendet werden, siehe [Project access tokens](https://docs.gitlab.com/ee/user/project/settings/project_access_tokens.html#project-access-tokens). Das Token muss der CI-Pipeline zur Verfügung stehen; am besten wird dafür in der Gruppe „Abgaben“ eine geschützte CI-Variable angelegt, siehe [Add a CI/CD variable to a group](https://docs.gitlab.com/ee/ci/variables/#add-a-cicd-variable-to-a-group).
 
-(Alternativ könnte auch ein eigenes Docker-Image gebaut werden, in dem diese Vorbereitungen bereits getroffen wurden. Dabei bietet sich die Nutzung der [GitLab CI Container Registry](https://docs.gitlab.com/ee/user/packages/container_registry/) an, falls diese im genutzten GitLab verfügbar ist.)
+(Alternativ könnte auch ein eigenes Docker-Image gebaut werden, in dem diese Vorbereitungen bereits getroffen wurden. Dabei bietet sich die Nutzung der [GitLab Container Registry](https://docs.gitlab.com/ee/user/packages/container_registry/) an, falls diese im genutzten GitLab verfügbar ist.)
 
 Für jede Programmieraufgabe muss dann noch eine eigene CI-Konfigurationsdatei angelegt werden, die die Deadline und die Aufgabennummer festlegt. Dafür gibt es ein Beispiel unter `ci-config/1-sample-task.yml`. Alle CI-Konfigurationsdateien müssen jetzt lesbar, aber schreibgeschützt bereitgestellt werden; am einfachsten ist es, sie auf einem Webserver hochzuladen. Jetzt muss in jedem Aufgaben-Repository die URL der aufgabenspezifischen Konfigurationsdatei eingetragen werden, siehe [Specify a custom CI/CD configuration file](https://docs.gitlab.com/ee/ci/pipelines/settings.html#specify-a-custom-cicd-configuration-file). Diese Einstellung geht später beim Forken nicht verloren.
 
@@ -110,7 +110,7 @@ Wenn das erledigt ist, sollte nun der Runner für jeden Commit, der in einem Abg
 
 ## 5. Automatische Veröffentlichung der Programmieraufgaben vorbereiten
 
-Um eine Programmieraufgabe für die Nutzer sichtbar zu machen, muss nun das in Schritt 2 angelegte Aufgaben-Repository in jede der Abgaben-Gruppen geforkt werden. (Der Fork kann nicht von den Nutzern selbst angelegt werden, da sie damit Owner der Kopie werden würden und damit die Berechtigung zum Force-Push erhalten würden.)
+Um eine Programmieraufgabe für die Nutzer sichtbar zu machen, muss nun das in Schritt 2 angelegte Aufgaben-Repository in jede der Abgaben-Gruppen geforkt werden. (Der Fork kann nicht von den Nutzern selbst angelegt werden, da sie damit Owner der Kopie werden und damit die Berechtigung zum Force-Push erhalten würden.)
 
 Für das automatische Anlegen der Forks gibt es ein Skript unter `scripts/step3_create_forks.py` (siehe `README.md` in `scripts`).
 
@@ -118,7 +118,7 @@ Falls regelmäßig eine neue Aufgabe freigeschaltet werden soll, z.B. wöchentli
 
 ## 6. Ergebnisse der Programmieraufgaben exportieren
 
-Eine Aufgabe gilt als von einer Gruppe bestanden, wenn die Gruppe mindestens einen Commit eingereicht hat, der alle Tests besteht (d.h. der Status der CI-Pipeline grün ist).
+Eine Aufgabe gilt als von einer Gruppe bestanden, wenn die Gruppe mindestens einen Commit eingereicht hat, der alle Tests besteht (d.h. dessen CI-Pipeline-Status grün ist).
 
 Für das automatische Exportieren der Ergebnisse gibt es ein Skript unter `scripts/step4_gather_results.py` (siehe `README.md` in `scripts`).
 
