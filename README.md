@@ -120,7 +120,7 @@ Falls regelmäßig eine neue Aufgabe freigeschaltet werden soll, z.B. wöchentli
 
 Eine Aufgabe gilt als von einer Gruppe bestanden, wenn die Gruppe mindestens einen Commit eingereicht hat, der alle Tests besteht (d.h. dessen CI-Pipeline-Status grün ist).
 
-Für das automatische Exportieren der Ergebnisse gibt es ein Skript unter `scripts/step4_gather_results.py` (siehe `README.md` in `scripts`).
+Für das automatische Exportieren der Ergebnisse je Aufgabe gibt es ein Skript unter `scripts/step4_gather_results.py`. Für die finale Auswertung, ob die Mindestanzahl an Programmieraufgaben pro Gruppe erfolgreich bearbeitet wurde, gibt es ein Skript unter `scripts/step5_generate_pass_fail_csv.py` (siehe `README.md` in `scripts`).
 
 # Lizenzen
 

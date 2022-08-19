@@ -56,3 +56,13 @@ Folgende Werte müssen im Skript ersetzt werden:
 - `<YOUR_GITLAB_TOKEN>` (GitLab-Token, das das Anlegen von Untergruppen erlaubt)
 - `<YOUR_GITLAB_URL>` (URL der GitLab-Instanz)
 - `<YOUR_DB_FILE_PATH>` (Pfad, unter dem die SQLite3-Datenbank angelegt werden soll)
+
+## `step5_generate_pass_fail_csv.py`
+
+Mit diesem Skript können die finalen Ergebnisse aller Programmieraufgaben ausgewertet werden. Es prüft, ob eine Mindestanzahl an Programmieraufgaben erfolgreich bearbeitet wurde. Dafür muss zunächst jede einzelne Programmieraufgabe mit dem oben beschriebenen Skript `step4_gather_results.py` ausgewertet worden sein. Das Skript gibt die Ergebnisse auf der Standardausgabe in CSV-Format aus. Sie können z.B. in eine CSV-Datei umgeleitet werden und dann bei Moodle importiert werden.
+
+Folgende Werte müssen im Skript ersetzt werden:
+
+- `<YOUR_DB_FILE_PATH>` (Pfad, unter dem die SQLite3-Datenbank mit den Ergebnissen der Aufgaben liegt)
+- `<EXERCISES_REQUIRED_TO_PASS>` (Anzahl der Aufgaben, die für das Bestehen erfolgreich gelöst sein müssen)
+- `<EMAIL_SUFFIX>` (Suffix, der an Nutzernamen angehängt werden soll (z.B. für Moodle-Import erforderlich); kann auch leer sein)
