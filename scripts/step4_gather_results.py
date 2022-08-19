@@ -9,7 +9,7 @@ GITLAB_URL = "https://<YOUR_GITLAB_URL>"
 DATABASE_FILE_PATH = "<YOUR_DB_FILE_PATH>"
 
 if len(sys.argv) < 2:
-	sys.stderr.write("Usage: python3 gather_results.py EXERCISE_NUMBER\n")
+	sys.stderr.write("Usage: python3 step4_gather_results.py EXERCISE_NUMBER\n")
 	sys.exit(1)
 
 EXERCISE = int(sys.argv[1])

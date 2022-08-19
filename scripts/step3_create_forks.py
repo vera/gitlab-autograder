@@ -7,7 +7,7 @@ GITLAB_URL = "https://<YOUR_GITLAB_URL>"
 
 if __name__ == "__main__":
 	if len(sys.argv) != 3:
-		print("Usage: python3 create_forks.py SUBMISSION_GROUP_ID PROJECT_TO_FORK")
+		print("Usage: python3 step3_create_forks.py SUBMISSION_GROUP_ID PROJECT_TO_FORK")
 		sys.exit(1)
 
 	SUBMISSION_GROUP_ID = sys.argv[1]

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ ! $# -eq 2 ]; then
-	echo "Usage: ./create_forks.sh SUBMISSION_GROUP_ID PROJECT_TO_FORK"
+	echo "Usage: ./step3_create_forks.sh SUBMISSION_GROUP_ID PROJECT_TO_FORK"
 	exit 1
 fi
 
