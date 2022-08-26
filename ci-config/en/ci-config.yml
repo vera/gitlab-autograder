@@ -1,0 +1,64 @@
+image: ${CI_DEPENDENCY_PROXY_DIRECT_GROUP_IMAGE_PREFIX}/python:3 # This caches the image using the GitLab Dependency Proxy to avoid running into pull limits
+
+variables:
+  TEST_DIR: "/usr/tests"
+  CHECKS_DIR: "/usr/checks"
+  LINTERS_DIR: "/usr/linters"
+
+stages:
+  - rules
+  - test1
+  - test2
+
+before_script:
+  - python --version
+  - git clone https://gitlab-ci-token:$GITLAB_TOKEN@<YOUR_GIT_REPOSITORY>.git
+  - cp <YOUR_GIT_REPOSITORY_NAME>/requirements.txt .
+  - python3 -m venv .venv
+  - source .venv/bin/activate
+  - pip install --no-cache-dir -r requirements.txt
+  - mkdir -p $TEST_DIR
+  - cp -r <YOUR_GIT_REPOSITORY_NAME>/tests/* $TEST_DIR
+  - mkdir -p $CHECKS_DIR
+  - cp -r <YOUR_GIT_REPOSITORY_NAME>/checks/* $CHECKS_DIR
+  - mkdir -p $LINTERS_DIR
+  - cp -r <YOUR_GIT_REPOSITORY_NAME>/linters/* $LINTERS_DIR
+  
+deadline-check:
+  stage: rules
+  only:
+    - master
+  script:
+    - bash $CHECKS_DIR/run_deadline_check.sh
+  
+attempt-number-check:
+  stage: rules
+  only:
+    - master
+  script:
+    - bash $CHECKS_DIR/run_attempt_number_check.sh
+    
+code-check:
+  stage: rules
+  only:
+    - master
+  script:
+    - export PYTHONPATH=$PYTHONPATH:$LINTERS_DIR
+    - bash $CHECKS_DIR/run_linter.sh
+
+student-test-suite:
+  stage: test1
+  only:
+    - master
+  script:
+    - cp $TEST_DIR/$TASK_NUMBER/* .
+    - bash $CHECKS_DIR/run_student_test_suite.sh
+
+verification-test-suite:
+  when: on_success
+  only:
+    - master
+  stage: test2
+  script:
+    - cp $TEST_DIR/$TASK_NUMBER/* .
+    - bash $CHECKS_DIR/run_verification_test_suite.sh

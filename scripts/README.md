@@ -1,5 +1,7 @@
 # GitLab Autograder: Skripte
 
+**For the English version of this README, [click here](README-en.md).**
+
 ## `step1_create_submission_groups.py`
 
 Mit diesem Skript können automatisch die „Abgaben“-Untergruppen angelegt werden. Dafür wird eine CSV-Datei benötigt, die pro Gruppe eine Zeile enthält. Aktuell wird dabei Datei mit den Spalten „Vorname“, „Nachname“ und „E-Mail-Adresse“ erwartet, wie sie von Moodle erzeugt wird. Diese Spalten werden zur Benennung der Gruppe verwendet. Das Skript kann aber leicht angepasst werden, so dass es andere Spalten erwartet bzw. die Gruppen anders benennt.

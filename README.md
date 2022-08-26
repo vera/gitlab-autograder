@@ -1,5 +1,7 @@
 # GitLab Autograder
 
+**For the English version of this README, [click here](README-en.md).**
+
 Dieses Repository enthält die Anleitung sowie nützliche Skripte und Vorlagen für die Einrichtung eines Autograders für Programmieraufgaben mittels GitLab CI. Beispielhaft wird hier der Einsatz für Python-Programmieraufgaben beschrieben. Die Anleitung lässt sich aber auch einfach auf andere Programmiersprachen übertragen. Die Nutzer-Zielgruppe sind Schüler bzw. Studenten.
 
 Der Autograder nutzt zwei verschiedene Test-Suites, um die Programmieraufgaben zu bewerten: eine öffentliche, die den Nutzern zur Verfügung gestellt wird, und eine geheime. Dies ist notwendig, um zu verhindern, dass die korrekten Ausgaben einfach hartgecodet werden, statt den gewünschten Algorithmus zu implementieren. Die Test-Suites werden bei jeder Abgabe automatisch von GitLab CI ausgeführt. Das Ergebnis wird graphisch und farblich (über das CI-Icon, das entweder rot oder grün wird) angezeigt. In den CI-Logs können weitere Feedback-Texte angezeigt werden.
@@ -86,7 +88,7 @@ Dieser Schritt muss ggf. später noch mehrfach wiederholt werden, falls nicht al
 
 ## 4. GitLab CI vorbereiten
 
-Es muss eine GitLab CI-Pipeline mit den gewünschten Testschritten konfiguriert werden. Unter `ci-config/ci-config.yml` gibt es eine Beispiel-Pipeline-Konfigurigation, die folgende Testschritte enthält:
+Es muss eine GitLab CI-Pipeline mit den gewünschten Testschritten konfiguriert werden. Unter `ci-config/de/ci-config.yml` gibt es eine Beispiel-Pipeline-Konfigurigation, die folgende Testschritte enthält:
 
 1. Deadline-Check: Überprüfung der Deadline
 2. Versuchsanzahl-Check: Überprüfung, ob max. Versuchsanzahl überschritten ist
@@ -96,13 +98,13 @@ Es muss eine GitLab CI-Pipeline mit den gewünschten Testschritten konfiguriert 
 
 Die Testschritte, insbesondere „Code-Check“, können je nach Bedürfnis angepasst werden.
 
-Bevor die Pipeline diese Testschritte ausführen kann, müssen zunächst die Test-Skripte und die Test-Suites geladen werden sowie die benötigten Python-Pakete installiert werden. Dies wird im Block „before_script“ erledigt. Die Test-Skripte und -Suites werden dabei aus einem Git-Repository geladen, das angelegt und mit den Dateien gefüllt werden muss. Unter `ci-config/sample-repo` gibt es eine Vorlage dafür.
+Bevor die Pipeline diese Testschritte ausführen kann, müssen zunächst die Test-Skripte und die Test-Suites geladen werden sowie die benötigten Python-Pakete installiert werden. Dies wird im Block „before_script“ erledigt. Die Test-Skripte und -Suites werden dabei aus einem Git-Repository geladen, das angelegt und mit den Dateien gefüllt werden muss. Unter `ci-config/de/sample-repo` gibt es eine Vorlage dafür.
 
 Das Repository darf natürlich nicht öffentlich sein, da sonst die geheime Test-Suite nicht mehr geheim wäre. Zum Herunterladen des Repositories muss also ein Token verwendet werden, siehe [Project access tokens](https://docs.gitlab.com/ee/user/project/settings/project_access_tokens.html#project-access-tokens). Das Token muss der CI-Pipeline zur Verfügung stehen; am besten wird dafür in der Gruppe „Abgaben“ eine geschützte CI-Variable angelegt, siehe [Add a CI/CD variable to a group](https://docs.gitlab.com/ee/ci/variables/#add-a-cicd-variable-to-a-group).
 
 (Alternativ könnte auch ein eigenes Docker-Image gebaut werden, in dem diese Vorbereitungen bereits getroffen wurden. Dabei bietet sich die Nutzung der [GitLab Container Registry](https://docs.gitlab.com/ee/user/packages/container_registry/) an, falls diese im genutzten GitLab verfügbar ist.)
 
-Für jede Programmieraufgabe muss dann noch eine eigene CI-Konfigurationsdatei angelegt werden, die die Deadline und die Aufgabennummer festlegt. Dafür gibt es ein Beispiel unter `ci-config/1-sample-task.yml`. Alle CI-Konfigurationsdateien müssen jetzt lesbar, aber schreibgeschützt bereitgestellt werden; am einfachsten ist es, sie auf einem Webserver hochzuladen. Jetzt muss in jedem Aufgaben-Repository die URL der aufgabenspezifischen Konfigurationsdatei eingetragen werden, siehe [Specify a custom CI/CD configuration file](https://docs.gitlab.com/ee/ci/pipelines/settings.html#specify-a-custom-cicd-configuration-file). Diese Einstellung geht später beim Forken nicht verloren.
+Für jede Programmieraufgabe muss dann noch eine eigene CI-Konfigurationsdatei angelegt werden, die die Deadline und die Aufgabennummer festlegt. Dafür gibt es ein Beispiel unter `ci-config/de/1-sample-task.yml`. Alle CI-Konfigurationsdateien müssen jetzt lesbar, aber schreibgeschützt bereitgestellt werden; am einfachsten ist es, sie auf einem Webserver hochzuladen. Jetzt muss in jedem Aufgaben-Repository die URL der aufgabenspezifischen Konfigurationsdatei eingetragen werden, siehe [Specify a custom CI/CD configuration file](https://docs.gitlab.com/ee/ci/pipelines/settings.html#specify-a-custom-cicd-configuration-file). Diese Einstellung geht später beim Forken nicht verloren.
 
 Der laufende GitLab CI Runner muss nun für die Gruppe „Abgaben“ registriert werden, siehe [Create a group runner](https://docs.gitlab.com/ee/ci/runners/runners_scope.html#create-a-group-runner). Dabei sollte eine Maximal-Pipeline-Laufzeit von z.B. 10 Minuten eingestellt werden, da ein Durchlauf normalerweise nicht länger dauert.
 
